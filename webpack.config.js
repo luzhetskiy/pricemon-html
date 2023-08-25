@@ -45,7 +45,7 @@ module.exports = {
   },
   devtool: 'source-map',
   devServer: {
-    open: true,
+    open: false,
     static: {
       directory: `./${publicDir}`,
       watch: true,
@@ -73,15 +73,25 @@ module.exports = {
           favicon: `${publicDir}/favicon.png`,
           hash: true,
           template: `${pagesDir}/${page}`,
-          filename: `${page.replace(/\.pug/, '.html')}`,
+          filename: page,
         })
     ),
   ],
   module: {
     rules: [
       {
-        test: /\.html$/i,
-        loader: "html-loader",
+        test: /\.html?$/,
+        use: [
+          {
+            loader: 'html-loader', // Used to output as html
+          },
+          {
+            loader: 'webpack-ssi-include-loader',
+            options: {
+              localPath: path.join(__dirname, '/src'),
+            },
+          },
+        ],
       },
       {
         test: /\.(sa|sc|c)ss$/,
@@ -119,11 +129,6 @@ module.exports = {
         generator: {
           filename: "fonts/[name][ext][query]", // [hash]
         },
-      },
-      {
-        test: /\.pug$/,
-        loader: "pug-loader",
-        exclude: /(node_modules|bower_components)/,
       },
       {
         test: /\.m?js$/,

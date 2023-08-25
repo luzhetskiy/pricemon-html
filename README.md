@@ -1,6 +1,4 @@
-# stroyker-k1-html-dev
-
-Посмотреть на build сборку: [github-pages](https://luzhetskiy.github.io/stroyker-k1-html-dev/)
+# pricemon-html
 
 # Установка зависимостей
 Для установки зависимостей, выполнить команду в терминале из каталога проекта:
