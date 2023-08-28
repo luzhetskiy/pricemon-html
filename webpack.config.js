@@ -33,6 +33,7 @@ console.log(mode + " mode");
 module.exports = {
   mode: mode,
   stats: "minimal",
+  target: 'web',
   entry: WebpackWatchedGlobEntries.getEntries([
     path.resolve(__dirname, `${devDir}/*.js`),
   ]),
@@ -43,9 +44,10 @@ module.exports = {
     path: path.resolve(__dirname, `./${buildDir}`),
     clean: true,
   },
-  devtool: 'source-map',
+  devtool: mode === 'development' ? 'source-map' : false,
   devServer: {
     open: false,
+    hot: true,
     static: {
       directory: `./${publicDir}`,
       watch: true,
